@@ -1,0 +1,35 @@
+<%- include partial/header %>
+<body>
+<%- include partial/menu %>
+<h3><a href="/students"><i class="fa fa-reply"></i> students list</a></h3>
+<form action="/students/<%-student.id%>/addsubjects" method="post">
+<table border="0" cellpading="0" cellspacing="0">
+	<tr>
+		<td>Fist Name</td>
+		<td>: <%-student.first_name%></td>
+	</td>
+	<tr>
+		<td>Last Name</th>
+		<td>: <%-student.last_name%></td>
+	</td>
+	<tr>
+		<td>Email</th>
+		<td>: <%-student.email%></td>
+	</td>
+	<tr>
+		<td>Chose Subject</td>
+		<td>: 
+		<input type="hidden" name="StudentId" value="<%-student.id%>">
+			<select name="SubjectId">
+				<%subject.forEach(i => {%>
+				<option value="<%-i.id%>"><%-i.subject_name%></option>
+				<%})%>
+			</select>
+			<input type="hidden" name="score">
+		</td>
+	</tr>
+</table>
+<input type="submit" value="Add Subject">
+</form>
+</body>
+</html>

@@ -1,0 +1,24 @@
+<%- include partial/header %>
+<body>
+<%- include partial/menu %>
+<h3><a href="/teachers"><i class="fa fa-book"></i> View Data</a></h3>
+<form action="/teachers/add" method="post">
+	<p>First Name</p>
+	<input type="text" name="first_name" placeholder="fisrt name"> 
+	<p>Last Name</p>
+	<input type="text" name="last_name" placeholder="last name"> 
+	<p>Email</p>
+	<input type="text" name="email" placeholder="email">
+	<label><%-msg%></label>
+	<p>Subject</p>
+	<select name="SubjectId">
+	<%subject.forEach(i => {%>
+		<option value="<%-i.id%>"><%-i.subject_name%></option>
+	<%})%>
+	</select>
+	<p>
+	<input type="submit" value="Add Teacher">
+	</p>
+</form>
+</body>
+</html>

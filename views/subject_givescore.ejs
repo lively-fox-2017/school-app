@@ -1,0 +1,25 @@
+<%- include partial/header %>
+<body>
+<%- include partial/menu %>
+	<h3><a href="/subjects"><i class="fa fa-reply"></i> subject list</a></h3>
+	<form action="/subjects/<%-data.id%>/givescore" method="post">
+		<input type="hidden" name="StudentId" value="<%-data.StudentId%>">
+		<input type="hidden" name="SubjectId" value="<%-data.SubjectId%>">
+		<table border="0" cellpading="0" cellspacing="0">
+			<tr>
+				<td>Name</td>
+				<td>: <%-data.student_name%></td>
+			</tr>
+			<tr>
+				<td>Subject</td>
+				<td>: <%-data.subject_name%></td>
+			</tr>
+			<tr>
+				<td>Score</td>
+				<td>: <input type="text" name="score" style="width:50px"></td>
+			</tr>
+		</table>
+		<input type="submit" value="Give Score">
+	</form>
+</body>
+</html>
