@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title>Add Subjects Students</title>
+  </head>
+  <body>
+    <h1>Halaman Add Subjects Students</h1>
+    <table>
+      <form action="/students/addsubjects/<%= dataStudents.id%>" method="post">
+        First name:<br>
+        <input type="text" name="first_name" value="<%=dataStudents.first_name%>">
+        <br>
+        Last name:<br>
+        <input type="text" name="last_name" value="<%=dataStudents.last_name%>">
+        <br>
+        Email:<br>
+        <input type="email" name="email" value="<%=dataStudents.email%>">
+        <br>
+        Subject Name:<br>
+        <select name="SubjectId">
+        <%dataSubjects.forEach(row=>{ %>
+          <option value="<%= row.id%>"><%= row.subject_name%></option>
+        <%})%>
+        </select>
+        <button type="submit" name="button">Tambah</button>
+      </form>
+    </table>
+  </body>
+</html>

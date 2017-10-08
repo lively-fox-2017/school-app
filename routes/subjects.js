@@ -5,10 +5,29 @@ const Model = require('../models')
 router.get('/', (req,res) => {
   Model.Subject.findAll()
   .then(subjects=>{
-    res.render('subjects',{dataSubjects:subjects})
-  })
-  .catch(err=>{
-    res.send(err)
+    let promise = subjects.map((data)=>{
+      return new Promise((resolve,reject)=>{
+        data.getTeachers()
+        .then(teachers=>{
+          if(teachers){
+            let arrTeacher = teachers.map(dataTeacher=>{
+              return dataTeacher.full_name()
+            })
+            data["teachers"] = arrTeacher
+          } else {
+            data["teachers"] = []
+          }
+          resolve(data)
+        })
+        .catch(err=>{
+          reject(err)
+        })
+      })
+    })
+    Promise.all(promise)
+    .then(result =>{
+      res.render('subjects',{dataSubjects:result})
+    })
   })
 })
 
@@ -65,7 +84,7 @@ router.post('/edit/:id',(req,res)=>{
     subject_name: req.body.subject_name,
   },
   {
-    where: {  
+    where: {
       id:req.params.id
     }
   })
@@ -77,5 +96,18 @@ router.post('/edit/:id',(req,res)=>{
   })
 })
 
+router.get('/enrolledstudents/:id', (req,res)=>{
+  Model.SubjectStudent.findById(req.params.id)
+  .then(conj=>{
+    Model.Student.findAll()
+    .then(student=>{
+      res.render('enrolledstudents',{data:conj})
+    })
+
+  })
+  .catch(err=>{
+    res.send(err)
+  })
+})
 
 module.exports = router;

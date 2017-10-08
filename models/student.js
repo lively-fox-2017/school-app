@@ -7,12 +7,10 @@ module.exports = (sequelize, DataTypes) => {
       type: DataTypes.STRING,
       validate: {isEmail:true}
     }
-  }, {
-    classMethods: {
-      associate: function(models) {
-        // associations can be defined here
-      }
-    }
   });
+  Student.associate = function(models){
+    Student.belongsToMany(models.Subject,{through:'SubjectStudent'})
+    Student.hasMany(models.SubjectStudent)
+  }
   return Student;
 };

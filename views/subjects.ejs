@@ -14,7 +14,9 @@
         <tr>
           <th>ID</th>
           <th>Subject</th>
-          <th colspan="2">Action</th>
+          <th>Teachers</th>
+          <th>Action</th>
+          <th colspan="2">Option</th>
         </tr>
       </thead>
       <tbody>
@@ -22,6 +24,16 @@
           <tr>
             <td><%= row.id%></td>
             <td><%= row.subject_name%></td>
+            <td>
+              <%if(row.teachers.length > 0){ %>
+                <%row.teachers.forEach((teachers,index)=>{ %>
+                  <%= (index+=1) + '.' + teachers %>
+                  <br>
+                <%})%>
+              <%} else {%>
+              <%}%>
+            </td>
+            <td><a href="/subjects/enrolledstudents/<%= row.id%>">Enrolled Students</td>
             <td><a href="/subjects/edit/<%= row.id%>">Edit</td>
             <td><a href="/subjects/delete/<%= row.id%>">Delete</td>
           </tr>

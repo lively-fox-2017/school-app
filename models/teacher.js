@@ -6,13 +6,15 @@ module.exports = (sequelize, DataTypes) => {
     email: {
       type: DataTypes.STRING,
       validate: {isEmail:true}
+    },
+    SubjectsId: DataTypes.INTEGER
+  })
+    Teacher.associate = function(models){
+      Teacher.belongsTo(models.Subject,{foreignKey:'SubjectsId'})
     }
-  }, {
-    classMethods: {
-      associate: function(models) {
-        // associations can be defined here
-      }
+
+    Teacher.prototype.full_name = function(){
+      return this.first_name+ " " +this.last_name
     }
-  });
-  return Teacher;
+    return Teacher;
 };

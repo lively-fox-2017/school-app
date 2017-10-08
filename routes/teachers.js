@@ -1,13 +1,30 @@
 const express = require('express')
 const router = express.Router()
 const Model = require('../models')
+
 router.get('/', (req,res) => {
   Model.Teacher.findAll()
   .then(teachers=>{
-    res.render('teachers',{dataTeachers:teachers})
-  })
-  .catch(err=>{
-    res.send(err)
+    let promise = teachers.map((data)=>{
+      return new Promise((resolve,reject)=>{
+        data.getSubject()
+        .then(subject=>{
+          if(subject){
+            data.subject_name = subject.subject_name
+          }else {
+            data.subject_name = '---Unassigned---'
+          }
+          resolve(data)
+        })
+        .catch(err=>{
+          reject(err)
+        })
+      })
+    })
+    Promise.all(promise)
+    .then(result =>{
+      res.render('teachers',{dataTeachers:result})
+    })
   })
 })
 
@@ -27,7 +44,7 @@ router.post('/add', (req,res)=>{
     last_name: req.body.last_name,
     email: req.body.email,
     createdAt: new Date(),
-    updatedAt: new Date()
+    updatedAt: new Date(),
   })
   .then(()=>{
     res.redirect('/teachers')
@@ -60,8 +77,10 @@ router.get('/delete/:id',(req,res)=>{
 router.get('/edit/:id',(req,res)=>{
   Model.Teacher.findById(req.params.id)
   .then(data=>{
-    // res.send(data)
-    res.render('edit_teachers', {dataTeachers:data})
+    Model.Subject.findAll()
+    .then(subject=>{
+      res.render('edit_teachers', {dataTeachers:data, dataSubjects:subject})
+    })
   })
   .catch(err=>{
     res.send(err)
@@ -73,6 +92,7 @@ router.post('/edit/:id',(req,res)=>{
     first_name: req.body.first_name,
     last_name: req.body.last_name,
     email:req.body.email,
+    SubjectsId:req.body.SubjectsId
   },
   {
     where: {

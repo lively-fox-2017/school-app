@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title>Enrolled Students</title>
+  </head>
+  <body>
+    <table border = '1px'>
+      <thead>
+        <tr>
+          <th>Nama</th>
+          <th>Action</th>
+        </tr>
+      </thead>
+      <tbody>
+      <%data.forEach(row =>{ %>
+      <tr>
+        <td><%=row.StudentId%></td>
+        <td>Score</td>
+      <%})%>
+
+        </tr>
+
+      </tbody>
+    </table>
+  </body>
+</html>

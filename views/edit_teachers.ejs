@@ -17,6 +17,12 @@
         Email:<br>
         <input type="email" name="email" value="<%=dataTeachers.email%>">
         <br>
+        Subject Name:<br>
+        <select name="SubjectsId">
+        <%dataSubjects.forEach(row=>{ %>
+          <option value="<%= row.id%>"><%= row.subject_name%></option>
+        <%})%>
+        </select>
         <button type="submit" name="button">Save</button>
       </form>
     </table>
