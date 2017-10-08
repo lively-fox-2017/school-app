@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <% include ./partials/head %>
+  </head>
+  <body>
+    <% include ./partials/header %>
+    <div class="container">
+      <% if(err) { %>
+        <div class="card text-white bg-danger">
+          <div class="card-body">
+            <%= err.message %>
+          </div>
+        </div>
+        <br>
+      <% } %>
+      <% if(data) { %>
+        <div class="card text-white bg-success">
+          <div class="card-body">
+            <%= data.first_name %> is successfully inserted.
+          </div>
+        </div>
+        <br>
+      <% } %>
+      <table id='subjects' class="display" width="100%" cellspacing="0">
+        <thead>
+          <tr>
+            <th>No.</th>
+            <th>Subject Name</th>
+            <th>Teachers</th>
+            <th>Actions</th>
+          </tr>
+        </thead>
+        <tbody>
+          <% if (subjects.length > 0) { %>
+            <% for (let i = 0; i < subjects.length; i++) { %>
+            <tr>
+              <td><%= i+1 %></td>
+              <td><%= subjects[i].subject_name %></td>
+              <td>
+                <ol>
+                  <%subjects[i].Teachers.forEach(teacher => { %>
+                    <li><%= teacher.getFullName() %></li>
+                  <%})%>
+                </ol>
+              </td>
+              <td>
+                <a href="/subjects/<%= subjects[i].id %>/enrolledstudents">Enrolled Students</a> |
+                <a href="/subjects/edit/<%= subjects[i].id %>">Edit</a> |
+                <a onclick="return confirm('Are you sure?')" href="/subjects/delete/<%= subjects[i].id %>">Delete</a>
+              </td>
+            </tr>
+            <% } %>
+          <% } else { %>
+            <tr>
+              <td colspan="5">No Record Available</td>
+            </tr>
+          <% } %>
+        </tbody>
+      </table>
+      <a href="/subjects/add"><button type="button" class="btn btn-primary">Add Subject</button></a>
+    </div>
+    <% include ./partials/footer %>
+    <script>
+      $(document).ready(function(){
+          $('#subjects').DataTable();
+      });
+    </script>
+  </body>
+</html>

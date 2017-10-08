@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <% include ./partials/head %>
+  </head>
+  <body>
+    <% include ./partials/header %>
+    <div class="container">
+      <% if(err) { %>
+        <div class="card text-white bg-danger">
+          <div class="card-body">
+            <%= err.message %>
+          </div>
+        </div>
+        <br>
+      <% } %>
+      <% if(data) { %>
+        <div class="card text-white bg-success">
+          <div class="card-body">
+            <%= data.first_name %> is <%= (before == 'insert') ? 'successfully inserted.' : 'successfully updated.' %>
+          </div>
+        </div>
+        <br>
+      <% } %>
+      <table id='teacher' class="display" width="100%" cellspacing="0">
+        <thead>
+          <tr>
+            <th>No.</th>
+            <th>First Name</th>
+            <th>Last Name</th>
+            <th>Full Name</th>
+            <th>Email</th>
+            <th>Actions</th>
+          </tr>
+        </thead>
+        <tbody>
+          <% if (students.length > 0) { %>
+            <% for (let i = 0; i < students.length; i++) { %>
+            <tr>
+              <td><%= i+1 %></td>
+              <td><%= students[i].first_name %></td>
+              <td><%= students[i].last_name %></td>
+              <td><%= students[i].getFullName() %></td>
+              <td><%= students[i].email %></td>
+              <td>
+                <a href="/students/<%= students[i].id %>/addsubject">Add Subject</a> |
+                <a href="/students/edit/<%= students[i].id %>">Edit</a> |
+                <a onclick="return confirm('Are you sure?')" href="/students/delete/<%= students[i].id %>">Delete</a>
+              </td>
+            </tr>
+            <% } %>
+          <% } else { %>
+            <tr>
+              <td colspan="5">No Record Available</td>
+            </tr>
+          <% } %>
+        </tbody>
+      </table>
+      <a href="/students/add"><button type="button" class="btn btn-primary">Add Student</button></a>
+    </div>
+    <% include ./partials/footer %>
+    <script>
+      $(document).ready(function(){
+          $('#teacher').DataTable();
+      });
+    </script>
+  </body>
+</html>

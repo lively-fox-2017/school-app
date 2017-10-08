@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <% include ./partials/head %>
+  </head>
+  <body>
+    <% include ./partials/header %>
+    <div class="container">
+      <% if(err) { %>
+        <div class="card text-white bg-danger">
+          <div class="card-body">
+            <%= err.message %>
+          </div>
+        </div>
+        <br>
+      <% } %>
+      <% if(data) { %>
+        <div class="card text-white bg-success">
+          <div class="card-body">
+            <%= data.first_name %> is successfully inserted.
+          </div>
+        </div>
+        <br>
+      <% } %>
+      <table id='teacher' class="display" width="100%" cellspacing="0">
+        <thead>
+          <tr>
+            <th>No.</th>
+            <th>First Name</th>
+            <th>Last Name</th>
+            <th>Email</th>
+            <th>Subject</th>
+            <th>Actions</th>
+          </tr>
+        </thead>
+        <tbody>
+          <% if (teachers.length > 0) { %>
+            <% for (let i = 0; i < teachers.length; i++) { %>
+            <tr>
+              <td><%= i+1 %></td>
+              <td><%= teachers[i].first_name %></td>
+              <td><%= teachers[i].last_name %></td>
+              <td><%= teachers[i].email %></td>
+              <td><%= (teachers[i].Subject) ? teachers[i].Subject.subject_name : 'Unassign' %></td>
+              <td>
+                <a href="/teachers/edit/<%= teachers[i].id %>">Edit</a> |
+                <a onclick="return confirm('Are you sure?')" href="/teachers/delete/<%= teachers[i].id %>">Delete</a>
+              </td>
+            </tr>
+            <% } %>
+          <% } else { %>
+            <tr>
+              <td colspan="5">No Record Available</td>
+            </tr>
+          <% } %>
+        </tbody>
+      </table>
+      <br>
+      <h2>Add New Teacher</h2>
+      <form action="/teachers" method="post">
+        <table class="table">
+          <tr>
+            <td>First Name</td>
+            <td>:</td>
+            <td><input type="text" name="first_name" value="<%= repopulate ? repopulate.first_name : '';%>" required></td>
+          </tr>
+          <tr>
+            <td>Last Name</td>
+            <td>:</td>
+            <td><input type="text" name="last_name" value="<%= repopulate ? repopulate.last_name : '';%>" required></td>
+          <tr>
+            <td>Email</td>
+            <td>:</td>
+            <td><input type="text" name="email" value="<%= repopulate ? repopulate.email : '';%>" required></td>
+          </tr>
+          <tr>
+            <td>Subject</td>
+            <td>:</td>
+            <td>
+              <select name="subjectId" required>
+                <option disabled selected value>Please Select Subject</option>
+                <%listSubjects.forEach((subject, index) => {%>
+                  <%if(repopulate){%>
+                    <option <%= (repopulate.subject === subject.id) ? 'selected' : '';%> value="<%= subject.id %>"><%= subject.subject_name %></option>
+                  <%} else { %>
+                    <option value="<%= subject.id %>"><%= subject.subject_name %></option>
+                  <%}%>
+                <%})%>
+              </select>
+            </td>
+          </tr>
+          <tr>
+            <td colspan="3"><input class="btn btn-primary" type="submit" name="submit" value="Submit"></td>
+          </tr>
+        </table>
+      </form>
+    </div>
+    <% include ./partials/footer %>
+    <script>
+      $(document).ready(function(){
+          $('#teacher').DataTable();
+      });
+    </script>
+  </body>
+</html>
