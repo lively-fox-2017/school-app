@@ -2,18 +2,51 @@
 <html>
   <head>
     <meta charset="utf-8">
-    <title></title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+    <title>Halaman Teacher</title>
   </head>
   <body>
-    <h1>Ini Adalah Halaman Edit Teacher</h1>
-    <% if (dataError) { %>
-      <p><%= dataError %></p>
-    <% }%>
+    <div class="container">
+      <h2 class="heading"><strong>Halaman Edit Teacher</strong></h2>
+        <!-- IF EMAIL VALIDATION ERR -->
+          <% if (dataError) { %>
+            <p><%= dataError %></p>
+          <% }%>
+        <!-- END OF EMAIL VALIDATION -->
+      <br>
+        <form action="/teachers/edit/<%= dataTeacher.id %>" method="post">
+          <div class="form-group">
+            <label for="first_name">First Name :</label>
+              <input type="text" class="form-control" id="first_name" name="first_name" value="<%= dataTeacher.first_name %>">
+          </div>
+          <div class="form-group">
+            <label for="last_name">Last Name :</label>
+              <input type="text" class="form-control" id="last_name" name="last_name" value="<%= dataTeacher.last_name %>">
+          </div>
+          <div class="form-group">
+            <label for="email">Email Name :</label>
+              <input type="email" class="form-control" id="email" name="email" value="<%= dataTeacher.email %>">
+          </div>
+          <div class="form-group">
+            <button type="submit" class="btn btn-primary btn-lg" style="width:100%;"><i class="fa fa-check"> Update Teacher</i></button>
+          </div>
+    </div>
+      </form>
+    </div>
   </body>
-  <form class="" action="/teachers/edit/<%= dataTeacher.id %>" method="post">
+  <!-- <form class="" action="/teachers/edit/<%= dataTeacher.id %>" method="post">
     <input type="text" name="first_name" value="<%= dataTeacher.first_name %>" required>
     <input type="text" name="last_name" value="<%= dataTeacher.last_name %>" required>
     <input type="text" name="email" value="<%= dataTeacher.email %>">
-    <input type="submit" value="SUBMIT">
-  </form>
+    <!-- <select class="" name="SubjectId">
+    <%dataSubject.forEach( row => { %>
+      <option value="<%= row.id %>"><%= row.subject_name %></option>
+    <% }) %>
+    <!-- <input type="submit" value="SUBMIT"> -->
+    <!-- </select> -->
+  <!-- </form> -->
 </html>

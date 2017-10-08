@@ -2,11 +2,49 @@ const express = require('express')
 const router = express.Router()
 const Model = require('../models')
 
+// router.get('/', function(req,res ) {
+//   Model.Subject.findAll()
+//   .then(dataSubject => {
+//     // res.send('ANYING ERROR')
+//     res.render('subjects/subjects', {dataSubject: dataSubject})
+//   })
+//   .catch(err => {
+//     res.send(err)
+//   })
+// })
+
 router.get('/', function(req,res ) {
   Model.Subject.findAll()
   .then(dataSubject => {
-    // res.send('ANYING ERROR')
-    res.render('subjects/subjects', {dataSubject: dataSubject})
+    let promise = dataSubject.map((subject) => {
+      return new Promise((resolve,reject) => {
+        subject.getTeachers()
+         .then(teacher => {
+           if(teacher) {
+             let newData = teacher.map(dataTeacher => {
+               return dataTeacher.fullname()
+             })
+            //  console.log(newData);
+             subject["teacher"] = newData
+           } else {
+             subject["teacher"] = ['UNASSIGNED']
+           }
+           resolve(subject);
+         })
+         .catch(err => {
+           reject(err)
+         })
+      })
+    })
+    Promise.all(promise)
+     .then(fixDataSubjects => {
+      //  console.log(fixDataSubjects);
+      //  res.send(fixDataSubjects)
+      res.render('subjects/subjects', {dataSubject: fixDataSubjects})
+     })
+    // console.log();
+    // res.send(dataTeacher)
+    // res.render('teachers/teachers', {dataTeacher: dataTeacher})
   })
   .catch(err => {
     res.send(err)

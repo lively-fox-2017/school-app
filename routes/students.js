@@ -3,7 +3,9 @@ const router = express.Router()
 const Model = require('../models')
 
 router.get('/', function(req,res ) {
-  Model.Student.findAll()
+  Model.Student.findAll({
+    order: [['first_name','ASC']]
+  })
   .then(dataStudent => {
     res.render('students/students', {dataStudent: dataStudent})
   })
@@ -83,6 +85,37 @@ router.post('/edit/:id', function(req,res) {
         res.render('teachers/add', {dataStudent: dataStudent, dataError: 'Email Tidak Valid'})
       })
     }
+  })
+})
+
+router.get('/assign/:id', function(req,res) {
+  Model.Student.findById(req.params.id)
+  .then(dataStudent => {
+    Model.Subject.findAll()
+    .then(dataSubject => {
+      // res.send(dataTeacher)
+      res.render('students/assign', { dataStudent: dataStudent, dataSubject: dataSubject, dataError: null })
+    })
+  })
+  .catch(err => {
+    res.send(err)
+  })
+})
+
+router.post('/assign/:id', function(req,res) {
+  Model.StudentSubject.create({
+    StudentId: req.params.id,
+    SubjectId: req.body.SubjectId
+  },{
+    where: {
+      id: req.params.id
+    }
+  })
+  .then(() => {
+    res.redirect('/students')
+  })
+  .catch(err => {
+    res.send(err)
   })
 })
 

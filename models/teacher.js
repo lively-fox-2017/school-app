@@ -1,4 +1,7 @@
 'use strict';
+
+const Fullname = require('../helper/fullname')
+
 module.exports = function(sequelize, DataTypes) {
   var Teacher = sequelize.define('Teacher', {
     first_name: DataTypes.STRING,
@@ -9,13 +12,15 @@ module.exports = function(sequelize, DataTypes) {
       validate: {isEmail:true}
     },
     createdAt: new Date(),
-    updatedAt: new Date()
-  }, {
-    classMethods: {
-      associate: function(models) {
-        // associations can be defined here
-      }
-    }
-  });
+    updatedAt: new Date(),
+    SubjectId: DataTypes.INTEGER
+  })
+  Teacher.associate = function(models) {
+    Teacher.belongsTo(models.Subject)
+  }
+  Teacher.prototype.fullname = function(){
+    // return Fullname.fullname(this.first_name,this.last_name)
+    return this.first_name + ' ' + this.last_name
+  }
   return Teacher;
 };

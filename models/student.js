@@ -9,12 +9,10 @@ module.exports = function(sequelize, DataTypes) {
     },
     createdAt: new Date(),
     updatedAt: new Date()
-  }, {
-    classMethods: {
-      associate: function(models) {
-        // associations can be defined here
-      }
-    }
-  });
+  })
+  Student.associate = function(models) {
+    Student.belongsToMany(models.Subject, {through: 'StudentSubject'})
+    Student.hasMany(models.StudentSubject)
+  }
   return Student;
 };

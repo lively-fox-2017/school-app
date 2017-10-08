@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+    <title>Halaman Assign Student</title>
+  </head>
+  <body>
+    <div class="container">
+      <h2 class="heading"><strong>Halaman Assign Student</strong></h2>
+      <br>
+      <form action="/students/assign/<%= dataStudent.id %>" method="post">
+        <div class="form-group">
+          <label for="SubjectId">Subject Name</label>
+          <select class="form-control" name="SubjectId">
+            <%dataSubject.forEach( row => { %>
+              <option value="<%= row.id %>"><%= row.subject_name %></option>
+            <% }) %>
+          </select>
+        </div>
+        <div class="form-group">
+          <button type="submit" class="btn btn-primary btn-lg" style="width:100%;"><i class="fa fa-check"> Assign Student</i></button>
+        </div>
+      </form>
+    </div>
+</html>

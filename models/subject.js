@@ -4,12 +4,11 @@ module.exports = function(sequelize, DataTypes) {
     subject_name: DataTypes.STRING,
     createdAt: new Date(),
     updatedAt: new Date()
-  }, {
-    classMethods: {
-      associate: function(models) {
-        // associations can be defined here
-      }
-    }
-  });
+  })
+  Subject.associate = function(models) {
+    Subject.hasMany(models.Teacher)
+    Subject.belongsToMany(models.Student, {through: 'StudentSubject'})
+    Subject.hasMany(models.StudentSubject)
+  }
   return Subject;
 };
