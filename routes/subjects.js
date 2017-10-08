@@ -97,17 +97,34 @@ router.post('/edit/:id',(req,res)=>{
 })
 
 router.get('/enrolledstudents/:id', (req,res)=>{
-  Model.SubjectStudent.findById(req.params.id)
-  .then(conj=>{
-    Model.Student.findAll()
-    .then(student=>{
-      res.render('enrolledstudents',{data:conj})
-    })
-
-  })
-  .catch(err=>{
-    res.send(err)
-  })
+  // router.get('/', (req,res) => {
+  //   Model.SubjectStudent.findAll()
+  //   .then(subjectstudent=>{
+  //     let promise = subjectstudent.map((data)=>{
+  //       return new Promise((resolve,reject)=>{
+  //         data.getStudents()
+  //         .then(student=>{
+  //           console.log(studentr);
+  //           if(student){
+  //             data.subject_name = subject.subject_name
+  //           }else {
+  //             data.subject_name = '---Unassigned---'
+  //           }
+  //           resolve(data)
+  //         })
+  //         .catch(err=>{
+  //           reject(err)
+  //         })
+  //       })
+  //     })
+  //     Promise.all(promise)
+  //     .then(result =>{
+  //       res.send(result)
+  //       // res.render('teachers',{dataTeachers:result})
+  //     })
+  //   })
+  // })
 })
+
 
 module.exports = router;
