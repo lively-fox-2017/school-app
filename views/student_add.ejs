@@ -1,0 +1,18 @@
+<%- include partial/header %>
+<body>
+<%- include partial/menu %>
+<h3><a href="/students"><i class="fa fa-plus-square"></i> View Data</a></h3>
+<form action="/students/add" method="post">
+	<p>First Name</p>
+	<input type="text" name="first_name" placeholder="fisrt name"> 
+	<p>Last Name</p>
+	<input type="text" name="last_name" placeholder="last name"> 
+	<p>Email</p>
+	<input type="text" name="email" placeholder="email">
+	<label><%-msg%></label>
+	<p>
+	<input type="submit" value="Add Student">
+	</p>
+</form>
+</body>
+</html>

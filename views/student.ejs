@@ -1,0 +1,27 @@
+<%- include partial/header %>
+<body>
+<%- include partial/menu %>
+<h3><a href="/students/add"><i class="fa fa-plus-square"></i> Add Students</a></h3>
+<table border="0" cellpading="0" cellspacing="0">
+	<th>No</th>
+	<th>First Name</th>
+	<th>Last Name</th>
+	<th>Full Name</th>
+	<th>Email</th>
+	<th>Action</th>
+	<th colspan="2">Options</th>
+	<% data.forEach((i,no) => {%>
+	<tr>
+		<td><%-no+1%></td>
+		<td><%-i.first_name%></td>
+		<td><%-i.last_name%></td>
+		<td><%-i.getFullname()%></td>
+		<td><%-i.email%></td>
+		<td><a href="/students/<%-i.id%>/addsubjects">Add Subject</a></td>
+		<td><a class="btn" href="/students/edit/<%-i.id%>"><i class="fa fa-edit"></i></a></td>
+		<td><a class="btn" href="/students/delete/<%-i.id%>"><i class="fa fa-trash"></i></a></td>
+	</tr>
+	<%}) %>
+</table>
+</body>
+</html>

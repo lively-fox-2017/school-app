@@ -1,0 +1,20 @@
+<%- include partial/header %>
+<body>
+<form action="/signup" method="post">
+	<h3>SIGNUP LOGIN</h3>
+	<p>Username</p>
+	<input type="text" name="username" placeholder="your username"> 
+	<p>Password</p>
+	<input type="password" name="password" placeholder="your password"> 
+	<p>Role</p>
+	<select name="role">
+		<option value="Teacher">Teacher</option>
+		<option value="Academic">Academic</option>
+		<option value="Head Master">Head Master</option>
+	</select>
+	<p>
+	<input type="submit" value="Signup">
+	</p>
+</form>
+</body>
+</html>

@@ -1,0 +1,20 @@
+<%- include partial/header %>
+<body>
+<%- include partial/menu %>
+
+<h3><%-subject.subject_name%></h3>
+<h3><a href="/subjects"><i class="fa fa-reply"></i> subject list</a></h3>
+<table border="0" cellpading="0" cellspacing="0">
+	<th>Name</th>
+	<th style="text-align:center">Score By Number</th>
+	<th style="text-align:center">Score By Letter</th>
+	<%student.forEach(i => {%>
+	<tr>
+		<td><%-i.student%></td>
+		<td style="text-align:center"><%-i.score%></td>
+		<td style="text-align:center"><%-i.score_letter%></td>
+	</tr>
+	<%})%>
+</table>
+</body>
+</html>

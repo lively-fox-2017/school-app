@@ -1,0 +1,66 @@
+<div class="menu">
+	<ul>
+		<li><a href="/"><i class="fa fa-home"></i> Home</a></li>
+		<% 
+			switch(role.role){
+				case 'Head Master':
+				%>
+				<li><a href="#"><i class="fa fa-users"></i> Students</a>
+					<ul>
+						<li><a href="/students">List Students</a></li>
+						<li><a href="/students/add">Add Student</a></li>
+					</ul>
+				</li>
+				<li><a href="#"><i class="fa fa-female"></i> Teachers</a>
+					<ul>
+						<li><a href="/teachers">List Teacher</a></li>
+						<li><a href="/teachers/add">Add Teacher</a></li>
+					</ul>
+				</li>
+				<li><a href="/subjects"><i class="fa fa-book"></i> Subjects</a>
+					<ul>
+						<li><a href="/subjects">List Subjects</a></li>
+						<li><a href="/subjects/add">Add Subject</a></li>
+					</ul>
+				</li>
+				<li><a href="/users"><i class="fa fa-book"></i> Users</a>
+					<ul>
+						<li><a href="/users">List Users</a></li>
+						<li><a href="/users/add">Add User</a></li>
+					</ul>
+				</li>
+				<%
+				break;
+				case 'Academic':
+				%>
+				<li><a href="#"><i class="fa fa-users"></i> Students</a>
+					<ul>
+						<li><a href="/students">List Students</a></li>
+						<li><a href="/students/add">Add Student</a></li>
+					</ul>
+				</li>
+				<li><a href="/subjects"><i class="fa fa-book"></i> Subjects</a>
+					<ul>
+						<li><a href="/subjects">List Subjects</a></li>
+						<li><a href="/subjects/add">Add Subject</a></li>
+					</ul>
+				</li>
+				<%
+				break;
+				case 'Teacher':
+				%>
+				<li><a href="#"><i class="fa fa-users"></i> Students</a>
+					<ul>
+						<li><a href="/students">List Students</a></li>
+						<li><a href="/students/add">Add Student</a></li>
+					</ul>
+				</li>
+				<%
+				break;
+			}
+		%>
+		<li style="float:right"><a href="/login/out"><i class="fa fa-sign-out"></i> Signout</a></li>
+	</ul>
+</div>
+<h2>Hacktive8 Academy</h2>
+<div class="container">

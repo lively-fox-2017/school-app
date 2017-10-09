@@ -1,0 +1,24 @@
+<%- include partial/header %>
+<body>
+<%- include partial/menu %>
+<table border="0" cellpading="0" cellspacing="0">
+	<th>ID</th>
+	<th>Subject Name</th>
+	<th>Teachers</th>
+	<th style="text-align:center">Action</th>
+	<% data.forEach((i,no) => {%>
+	<tr>
+		<td><%-no+1%></td>
+		<td><%-i.subject_name%></td>
+		<td>
+		<%i.guru.forEach((name,i) => {%>
+		<%-i+1+'. '+name+'<br>'%>
+		<%})%>
+		</td>
+		<td style="text-align:center"><a href="/subjects/<%-i.id%>/enrollstudents">Enroll Students</a></td>
+	</tr>
+	<%}) %>
+</table>
+
+</body>
+</html>
