@@ -4,21 +4,95 @@
     <meta charset="utf-8">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+    <link rel="stylesheet" href="/stylesheets/css/index.css">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+    <script type="text/javascript" src="/stylesheets/js/index.js"></script>
     <title>Halaman Subject</title>
   </head>
   <body>
+    <div id="wrapper">
+      <div class="overlay"></div>
+
+    <!-- Sidebar -->
+    <nav class="navbar navbar-inverse navbar-fixed-top" id="sidebar-wrapper" role="navigation">
+        <ul class="nav sidebar-nav">
+            <li class="sidebar-brand">
+                <a href="#">
+                   Hacktiv8 School
+                </a>
+            </li>
+            <li>
+                <a href="#">@PJAP17</a>
+            </li>
+            <!-- <li>
+                <a href="/students/">Student</a>
+            </li> -->
+            <% if (session.role == 'teacher') { %>
+              <li class="dropdown">
+                <a href="#" class="dropdown-togg  le" data-toggle="dropdown">Menu Student<span class="caret"></span></a>
+                <ul class="dropdown-menu" role="menu">
+                  <li class="dropdown-header"></li>
+                  <li><a href="/students">List Student</a></li>
+                  <li><a href="#">List Punishment Student</a></li>
+                  <li><a href="#">List Award Student</a></li>
+                  <li><a href="#">Laporan Siswa</a></li>
+                </ul>
+              </li>
+              <li><a href="/logout">Logout</a></li>
+            <% } else if (session.role == 'academic') { %>
+              <li class="dropdown">
+                <a href="#" class="dropdown-togg  le" data-toggle="dropdown">Menu Academic<span class="caret"></span></a>
+                <ul class="dropdown-menu" role="menu">
+                  <li class="dropdown-header"></li>
+                  <li><a href="/students">List Student</a></li>
+                  <li><a href="/subjects">List Subject</a></li>
+                  <li><a href="#">List Award Student</a></li>
+                  <li><a href="#">List Punishment Student</a></li>
+                  <li><a href="#">Laporan Siswa</a></li>
+                </ul>
+              </li>
+              <li><a href="/logout">Logout</a></li>
+            <% } else if (session.role == 'headmaster') { %>
+              <li class="dropdown">
+                <a href="#" class="dropdown-togg  le" data-toggle="dropdown">Menu Head Master<span class="caret"></span></a>
+                <ul class="dropdown-menu" role="menu">
+                  <li class="dropdown-header"></li>
+                  <li><a href="/subjects">List Subject</a></li>
+                  <li><a href="/students">List Student</a></li>
+                  <li><a href="/teachers">List Teacher</a></li>
+                  <li><a href="#">Laporan Teacher</a></li>
+                  <li><a href="#">Laporan Siswa</a></li>
+                </ul>
+              </li>
+              <li><a href="/logout">Logout</a></li>
+            <% } %>
+        </ul>
+    </nav>
+    <!-- /#sidebar-wrapper -->
+
+    <!-- Page Content -->
+  <div id="page-content-wrapper">
+      <button type="button" class="hamburger is-closed" data-toggle="offcanvas">
+          <span class="hamb-top"></span>
+          <span class="hamb-middle"></span>
+          <span class="hamb-bottom"></span>
+      </button>
     <div class="container">
       <h2 class="text-center"><strong>TABLE SUBJECT</strong></h2>
+      <div class="text-center">
+        <button type="button" class="btn btn-primary btn-sm" data-toggle="modal" data-target="#addModal">
+          <i class="fa fa-user-plus"> Add New Subject</i>
+        </button>
+      </div>
       <br>
-      <table class="table table-stripped table-hover table-sm">
+      <table class="table table-stripped table-sm">
         <thead>
           <tr>
             <th>ID</th>
             <th>SUBJECT NAME</th>
             <th>TEACHER LIST</th>
-            <!-- <th colspan="3" class="text-center">OPTIONS</th> -->
+            <th colspan="3" class="text-center">OPTIONS</th>
           </tr>
         </thead>
         <tbody>
@@ -36,57 +110,58 @@
                   x
                 <% } %>
               </td>
-              <!-- <td>
-                  <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#addModal">
-                    <i class="fa fa-user-plus"> Add</i>
-                  </button>
+              <td><a href="/subjects/assign/<%= rows.id %>"><i class="fa fa-group"> Enrolled Students</i></a></td>
+              <td>
+
               </td>
               <td>
                 <a href="/subjects/edit/<%= rows.id %>">
                   <button type="button" class="btn btn-primary btn-sm">
-                    <i class="fa fa-pencil"> Edit</i>
+                    <i class="fa fa-pencil"> Edit Data</i>
                   </button>
                 </a>
               </td>
               <td>
                 <a href="/subjects/delete/<%= rows.id %>">
                   <button type="button" class="btn btn-primary btn-sm">
-                    <i class="fa fa-trash"> Delete</i>
+                    <i class="fa fa-trash"> Delete Data</i>
                   </button>
                 </a>
-              </td> -->
+              </td>
               <% }) %>
         </tbody>
       </table>
+
+      <!-- START OF MODAL ( FOR SMALL / LARGE JUST + modal-sm / modal-lg) -->
+
+      <!-- ADD MODAL -->
+      <div class="modal fade" id="addModal" role="dialog">
+        <div class="modal-dialog">
+          <div class="modal-content">
+            <div class="modal-header">
+              <button type="button" class="close" data-dismiss="modal"><i class="fa fa-remove"></i></button>
+              <!-- &times; -->
+              <h4 class="modal-title">Form Add New Subject</h4>
+            </div>
+            <!-- ACTION POST  WHEN SUBMIT-->
+            <form class="" action="/subjects/add" method="post">
+            <div class="modal-body">
+              <div class="form-group">
+                <input class="form-control" type="text" name="subject_name" placeholder="Input Nama Subject" required>
+              </div>
+            </div>
+            <div class="modal-footer">
+              <button type="submit" class="btn btn-primary btn-lg" style="width:100%;"><i class="fa fa-plus"> Add Teacher</i></button>
+            </div>
+            </form>
+            <!-- END OF ACTION POST WHEN SUBMIT -->
+          </div>
+        </div>
+      </div>
+      <!-- ADD MODAL -->
+
+        <!-- END OF MODAL -->
     </div>
-    <!-- <table border="1px solid black">
-      <thead>
-        <th>ID</th>
-        <th>Subject Name</th>
-        <th>TEACHER</th>
-        <th colspan="3">STATUS</th>
-      </thead>
-      <tbody>
-        <% dataSubject.forEach(rows => { %>
-          <tr>
-            <td><%= rows.id %></td>
-            <td><%= rows.subject_name %></td>
-            <td>
-              <% if(rows.teacher.length > 0) { %>
-              <% rows.teacher.forEach((teacher,index) => { %>
-                <%= (index+=1) + '.' + teacher %>
-              </br>
-              <% }) %>
-              <% } else { %>
-                x
-              <% } %>
-            </td>
-            <td><a href="/subjects/add">Add</a></td>
-            <td><a href="/subjects/edit/<%= rows.id %>">EDIT</a></td>
-            <td><a href="/subjects/delete/<%= rows.id %>">HAPUS</a></td>
-          </tr>
-        <% }) %>
-      </tbody>
-    </table> -->
+  </div>
   </body>
 </html>

@@ -2,6 +2,14 @@ const express = require('express')
 const router = express.Router()
 const Model = require('../models')
 
+router.use((req,res,next) => {
+  if (req.session.role === 'headmaster') {
+    next()
+  } else {
+    res.redirect('/')
+  }
+})
+
 router.get('/', function(req,res ) {
   Model.Teacher.findAll({
     order: [['id', 'ASC']]
@@ -27,7 +35,7 @@ router.get('/', function(req,res ) {
 
     Promise.all(promise)
      .then(fixDataTeachers => {
-      res.render('teachers/teachers', {dataTeacher: fixDataTeachers})
+      res.render('teachers/teachers', {dataTeacher: fixDataTeachers, session: req.session})
      })
   })
   .catch(err => {

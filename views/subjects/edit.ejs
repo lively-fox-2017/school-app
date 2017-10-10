@@ -2,13 +2,25 @@
 <html>
   <head>
     <meta charset="utf-8">
-    <title></title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+    <title>Halaman Edit Subject</title>
   </head>
   <body>
-    <h1>Ini Adalah Halaman Edit Subject</h1>
+    <div class="container">
+      <h2 class="heading"><strong>Halaman Edit Subject</strong></h2>
+    <br>
+    <form action="/subjects/edit/<%= dataSubject.id %>" method="post">
+      <div class="form-group">
+        <label for="subject_name">Subject Name :</label>
+        <input type="text" class="form-control" name="subject_name" value="<%= dataSubject.subject_name %>" required>
+      </div>
+      <div class="form-group">
+        <button type="submit" class="btn btn-primary btn-lg" style="width:100%;"><i class="fa fa-check"> Update Student</i></button>
+      </div>
+    </form>
   </body>
-  <form class="" action="/subjects/edit/<%= dataSubject.id %>" method="post">
-    <input type="text" name="subject_name" value="<%= dataSubject.subject_name %>" required>
-    <input type="submit" value="SUBMIT">
-  </form>
+  </div>
 </html>

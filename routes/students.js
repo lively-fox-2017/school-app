@@ -2,12 +2,21 @@ const express = require('express')
 const router = express.Router()
 const Model = require('../models')
 
+router.use((req, res, next)=>{
+  console.log("==== MASUK STUDENT", req.session);
+  if(req.session.role === 'teacher' || req.session.role === 'academic' || req.session.role === 'headmaster' ){
+    next()
+  }else {
+    res.redirect('/')
+  }
+})
+
 router.get('/', function(req,res ) {
   Model.Student.findAll({
     order: [['first_name','ASC']]
   })
   .then(dataStudent => {
-    res.render('students/students', {dataStudent: dataStudent})
+    res.render('students/students', {dataStudent: dataStudent, session: req.session})
   })
   .catch(err => {
     res.send(err)

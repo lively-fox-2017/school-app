@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+    <link rel="stylesheet" href="/stylesheets/css/login.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+    <script type="text/javascript" src="/stylesheets/js/login.js"></script>
+    <title>LOGIN PJAP17</title>
+  </head>
+  <body>
+    <div class="container">
+	     <div id="login-box">
+		       <div class="logo">
+			          <img src="http://lorempixel.com/output/people-q-c-100-100-1.jpg" class="img img-responsive img-circle center-block"/>
+			             <h1 class="logo-caption"><span class="tweak">L</span>ogin</h1>
+		       </div><!-- /.logo -->
+    <form class="" action="/login" method="post">
+      <div class="controls">
+        <% if (errData) {%>
+          <p style="color:tomato"><%= errData %></p>
+        <% } %>
+        <br>
+  			<input type="text" name="username" placeholder="Username" class="form-control" />
+  			<input type="text" name="password" placeholder="Password" class="form-control" />
+  			<button type="submit" class="btn btn-default btn-block btn-custom">Login</button>
+        <br>
+        <div class="text-right">
+          <!-- <button type="button" class="btn btn-danger btn-xs" data-toggle="modal" data-target="#addModal">
+            <i class="fa fa-user-plus"> Add New User</i>
+          </button> -->
+        <p class="text-right"><a href="/signup">Want To Be Member ? Just Sign Up</a></p>
+  		  </div><!-- /.controls -->
+
+    </form>
+	     </div><!-- /#login-box -->
+     </div><!-- /.container -->
+
+     <div id="particles-js"></div>
+   </div>
+  </body>
+</html>
+
+<!-- START OF MODAL ( FOR SMALL / LARGE JUST + modal-sm / modal-lg) -->
+
+<!-- ADD MODAL -->
+<!-- <div class="modal fade" id="addModal" role="dialog">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal"><i class="fa fa-remove"></i></button> -->
+        <!-- &times; -->
+        <!-- <h4 class="modal-title">Form Add New Teacher</h4>
+      </div> -->
+      <!-- ACTION POST  WHEN SUBMIT-->
+      <!-- <form class="" action="/signup" method="post">
+      <div class="modal-body">
+        <div class="form-group">
+          <input class="form-control" type="text" name="username" placeholder="Input Username" required>
+        </div>
+        <div class="form-group">
+          <input class="form-control" type="text" name="password" placeholder="Input Password" required>
+        </div>
+        <div class="form-group">
+          <label for="signup">Select list (select one):</label>
+           <select class="form-control" id="signup" name="role">
+             <option value="teacher">Teacher</option>
+             <option value="academic">Academic</option>
+             <option value="headmaster">Head Master</option>
+           </select>
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button type="submit" class="btn btn-primary btn-lg" style="width:100%;"><i class="fa fa-plus"> Add User</i></button>
+      </div>
+      </form> -->
+      <!-- END OF ACTION POST WHEN SUBMIT -->
+    <!-- </div>
+  </div>
+</div>
+</div> -->
+<!-- ADD MODAL -->
+
+  <!-- END OF MODAL -->
+<!--<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/particles.js/2.0.0/particles.min.js"></script>-->

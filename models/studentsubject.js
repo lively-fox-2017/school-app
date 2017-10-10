@@ -9,5 +9,6 @@ module.exports = function(sequelize, DataTypes) {
     StudentSubject.belongsTo(models.Student)
     StudentSubject.belongsTo(models.Subject)
   }
+  
   return StudentSubject;
 };
