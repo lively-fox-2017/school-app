@@ -24,7 +24,7 @@ router.get('/', function(req,res ) {
 })
 
 router.get('/add', function(req,res) {
-  res.render('students/add', {dataError: null})
+  res.render('students/add', {dataError: null, session: req.session})
 })
 
 router.post('/add', function(req,res) {
@@ -42,7 +42,7 @@ router.post('/add', function(req,res) {
       if (err.message == 'Validation error: Validation isEmail on email failed'){
         Model.Student.findAll()
         .then(dataStudent=> {
-          res.render('teachers/add', {dataStudent: dataStudent, dataError: 'Email Tidak Valid'})
+          res.render('teachers/add', {dataStudent: dataStudent, dataError: 'Email Tidak Valid', session: req.session})
         })
       }
     })
@@ -66,7 +66,7 @@ router.get('/edit/:id', function(req,res) {
   Model.Student.findById(req.params.id)
   .then(dataStudent => {
     // res.send(dataTeacher)
-    res.render('students/edit', { dataStudent: dataStudent, dataError: null })
+    res.render('students/edit', { dataStudent: dataStudent, dataError: null, session: req.session })
   })
   .catch(err => {
     res.send(err)
@@ -91,7 +91,7 @@ router.post('/edit/:id', function(req,res) {
     if (err.message == 'Validation error: Validation isEmail on email failed'){
       Model.Student.findAll()
       .then(dataStudent=> {
-        res.render('teachers/add', {dataStudent: dataStudent, dataError: 'Email Tidak Valid'})
+        res.render('teachers/add', {dataStudent: dataStudent, dataError: 'Email Tidak Valid', session: req.session})
       })
     }
   })
@@ -103,7 +103,7 @@ router.get('/assign/:id', function(req,res) {
     Model.Subject.findAll()
     .then(dataSubject => {
       // res.send(dataTeacher)
-      res.render('students/assign', { dataStudent: dataStudent, dataSubject: dataSubject, dataError: null })
+      res.render('students/assign', { dataStudent: dataStudent, dataSubject: dataSubject, dataError: null, session: req.session })
     })
   })
   .catch(err => {
